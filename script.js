@@ -37,40 +37,68 @@ function displayCityInfo() {
         console.log(response.list[0].main.temp);
         // Displaying the rating
         // cityDiv.append(hTwo);+ '&deg;F');
+        console.log("humidity", response.list[0].main.humidity);
+        console.log("wind", response.list[0].wind.speed);
+        let lat = (response.city.coord.lat).toFixed(2);
 
-        // Storing the release year
-        //var pTemp = response.temp + "&units=imperial";
+        let lon = (response.city.coord.lon).toFixed(2);
 
-        // Creating an element to hold the release year
-        //  var pTag1 = $("<p>").text("Temperature: " + pTemp);
+        console.log("lat", lat);
+        console.log("lon", lon);
+        queryURL1 = "http://api.openweathermap.org/v3/uvi/" + lat + "," + lon + "/" + Date + ".json?appid=" + apiKey;
 
-        // Displaying the release year
-        //   CityDiv.append(pTag1);
 
-        // Storing the plot
-        //  var plot = response.Plot;
+        $.ajax({
+            url: queryURL1,
 
-        // Creating an element to hold the plot
-        //  var pThree = $("<p>").text("Plot: " + plot);
+            method: "GET"
 
-        // Appending the plot
-        //  movieDiv.append(pThree);
+        }).then(function (response) {
 
-        // Retrieving the URL for the image
-        //   var imgURL = response.Poster;
+            console.log("uv i hope", response.data, "or this is right", response);
 
-        // Creating an element to hold the image
-        //   var image = $("<img>").attr("src", imgURL);
 
-        // Appending the image
-        //   movieDiv.append(image);
+            //http://api.openweathermap.org/v3/uvi/40.7,-74.2/current.json?appid={your-api-key}
+            // Storing the release year    // Transfer content to HTML
+            ////$(".city").html("<h1>" + response.name + " Weather Details</h1>");
+            //$(".wind").text("Wind Speed: " + response.wind.speed);
+            //$(".humidity").text("Humidity: " + response.main.humidity);
+            //var pTemp = response.temp + "&units=imperial";
 
-        // Putting the entire movie above the previous movies
-        //   $("#movies-view").prepend(movieDiv);
+            // Creating an element to hold the release year
+            //  var pTag1 = $("<p>").text("Temperature: " + pTemp);
+
+            // Displaying the release year
+            //   CityDiv.append(pTag1);
+
+            // Storing the plot
+            //  var plot = response.Plot;
+
+            // Creating an element to hold the plot
+            //  var pThree = $("<p>").text("Plot: " + plot);
+
+            // Appending the plot
+            //  movieDiv.append(pThree);
+
+            // Retrieving the URL for the image
+            //   var imgURL = response.Poster;
+
+            // Creating an element to hold the image
+            //   var image = $("<img>").attr("src", imgURL);
+
+            // Appending the image
+            //   movieDiv.append(image);
+
+            // Putting the entire movie above the previous movies
+            //   $("#movies-view").prepend(movieDiv);
+            // getUV();
+        })
     });
-
 }
+// function getUV() {
 
+
+// }
 // Function for displaying movie data
 function renderButtons() {
 
