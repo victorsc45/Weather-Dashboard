@@ -1,38 +1,43 @@
 // Initial array of movies
-var cities = ["Raleigh"];
+var cities = [];
 
 // displayMovieInfo function re-renders the HTML to display the appropriate content
 function displayCityInfo() {
-
+    let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
     var city = $(this).attr("data-name");
-    var queryURL = "api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=5d6e81d650809ae177d0c068370e46a8";
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
 
     // Creating an AJAX call for the specific movie button being clicked
     $.ajax({
         url: queryURL,
+
         method: "GET"
     }).then(function (response) {
+        // Log the queryURL
+        console.log(queryURL);
+
+        // Log the resulting object
         console.log(response);
         // Creating a div to hold the movie
-        var cityDiv = $("<div class='city'>");
+        //  var cityDiv = $("<div class='city'>");
 
         // Storing the rating data
-        var date = response.list.dt;
+        //  var date = response.list.dt;
 
         // Creating an element to have the rating displayed
-        var hTwo = $("<h2>").text("(" + "Date: " + date + ")");
+        //  var hTwo = $("<h2>").text("(" + "Date: " + date + ")");
 
         // Displaying the rating
-        cityDiv.append(hTwo);
+        // cityDiv.append(hTwo);
 
         // Storing the release year
-        var pTemp = response.temp + "&units=imperial";
+        //var pTemp = response.temp + "&units=imperial";
 
         // Creating an element to hold the release year
-        var pTag1 = $("<p>").text("Temperature: " + pTemp);
+        //  var pTag1 = $("<p>").text("Temperature: " + pTemp);
 
         // Displaying the release year
-        CityDiv.append(pTag1);
+        //   CityDiv.append(pTag1);
 
         // Storing the plot
         //  var plot = response.Plot;
@@ -89,7 +94,7 @@ $("#add-city").on("click", function (event) {
     var city = $("#city-input").val().trim();
 
     // Adding movie from the textbox to our array
-    movies.push(city);
+    cities.push(city);
 
     // Calling renderButtons which handles the processing of our movie array
     renderButtons();

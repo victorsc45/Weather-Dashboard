@@ -37,12 +37,21 @@
     <!-- container that all the JS will append for the project -->
 
     <div class="container container-fluid"> </div>
-    <label for="search">Search City:</label>
-    <input type="text" id="city-input">
-    <input type="submit" id="add-city" value="where to next!">
 
+    <div class="input-group col-md-4">
+        <label for="search">Search for a City:</label><br>
 
+        <input class="form-control py-2" type="search" placeholder="input a city" id="city-input">
+        <span class="input-group-append">
+            <button class="btn btn-outline-secondary" id="add-city" type="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </span>
+    </div>
+    <!-- <input type="text" id="city-input">
+    <input type="submit" id="add-city" value="where to next!"> -->
 
+    <div id="buttons-view"></div>
 
 
 
