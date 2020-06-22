@@ -95,8 +95,10 @@ body {
     }
   
     /* footer style to match the Jumbotron */
-  .footer-copyright {
+  /* .footer-copyright {
     margin-top: 20px;
     background-color: #4aaaa4;
     opacity: .7;
-  }
+    position: relative;
+    bottom: 0;
+  } */

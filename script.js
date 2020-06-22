@@ -5,13 +5,14 @@ var cities = [];
 function displayCityInfo() {
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
     var city = $(this).attr("data-name");
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
     // Creating an AJAX call for the specific movie button being clicked
     $.ajax({
         url: queryURL,
 
         method: "GET"
+
     }).then(function (response) {
         // Log the queryURL
         console.log(queryURL);
@@ -20,15 +21,15 @@ function displayCityInfo() {
         console.log(response);
         // Creating a div to hold the movie
         //  var cityDiv = $("<div class='city'>");
-
+        console.log(response.city.name);
         // Storing the rating data
         //  var date = response.list.dt;
-
+        console.log(response.list[0].dt_txt);
         // Creating an element to have the rating displayed
         //  var hTwo = $("<h2>").text("(" + "Date: " + date + ")");
-
+        console.log(response.list[0].main.temp);
         // Displaying the rating
-        // cityDiv.append(hTwo);
+        // cityDiv.append(hTwo);+ '&deg;F');
 
         // Storing the release year
         //var pTemp = response.temp + "&units=imperial";

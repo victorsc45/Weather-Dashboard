@@ -38,46 +38,89 @@
 
     <div class="container container-fluid"> </div>
 
-    <div class="input-group col-md-4">
-        <label for="search">Search for a City:</label><br>
-
+    <div class="input-group col-md-4 float-left">
+        <label class="input-group mb-3" for="search">Search for a City:</label>
         <input class="form-control py-2" type="search" placeholder="input a city" id="city-input">
         <span class="input-group-append">
             <button class="btn btn-outline-secondary" id="add-city" type="button">
                 <i class="fa fa-search"></i>
             </button>
         </span>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div id="buttons-view"></div>
+            </div>
+        </div>
+
     </div>
-    <!-- <input type="text" id="city-input">
-    <input type="submit" id="add-city" value="where to next!"> -->
-
-    <div id="buttons-view"></div>
 
 
+    <!-- city current information media card -->
+    <div class="media border p-3 col-md-8 float-right">
+
+        <div class="media-body">
+            <h4 class="cityCl"><small><i class="dateCl"></i></small></h4>
+            <p class="tempCl"></p>
+            <p class="humidCl"></p>
+            <p class="windCl"></p>
+            <p class="uvCl"><i class="iconCl"></i></p>
 
 
 
 
-    <!-- javaScript jQuery link and moment.js minified link  -->
+        </div>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- forecast card deck -->
+    <div class="media border p-3 col-md-8 float-right">
+        <div class="card-deck">
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p style="height: 160px" class="card-text">Some text inside the first card</p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the second card</p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the third card</p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the fourth card</p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text">Some text inside the fourth card</p>
+                </div>
+            </div>
 
-    <!-- link to unique javaScript page for this project -->
+        </div>
+        <!-- javaScript jQuery link and moment.js minified link  -->
 
-    <script src="script.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
-    <!-- Footer -->
+        <!-- link to unique javaScript page for this project -->
 
-    <footer class="page-footer font-small blue">
+        <script src="script.js" type="text/javascript"></script>
+
+        <!-- Footer -->
+
+        <!-- <footer class="page-footer font-small blue"> -->
 
         <!-- Copyright footer bootstrap -->
         <!-- link to GitHub Repository for easy access to this project's files -->
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://github.com/victorsc45"> VictorLitzauGitHub.com</a>
-        </div>
+        <!-- <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a href="https://github.com/victorsc45"> VictorLitzauGitHub.com</a>
+            </div>
 
-    </footer>
+        </footer> -->
 
 </body>
 
