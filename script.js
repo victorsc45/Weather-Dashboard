@@ -24,7 +24,14 @@ function displayCityInfo() {
         console.log(response.city.name);
         // Storing the rating data
         //  var date = response.list.dt;
-        console.log(response.list[0].dt_txt);
+
+
+        let Date = response.list[0].dt_txt;
+
+
+
+        console.log(moment(Date).format('MMMM Do, YYYY'));
+
         // Creating an element to have the rating displayed
         //  var hTwo = $("<h2>").text("(" + "Date: " + date + ")");
         console.log(response.list[0].main.temp);
