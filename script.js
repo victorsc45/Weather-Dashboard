@@ -1,15 +1,15 @@
 $(document).ready(function () {
 
-    // Initial array of movies
+    // Initial array of cities
     var cities = [];
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
-    // displayMovieInfo function re-renders the HTML to display the appropriate content
+    // display city weather Info function re-renders the HTML to display the appropriate content
     function displayCityInfo() {
+        let city = $(this).attr("data-name");
 
-        var city = $(this).attr("data-name");
         var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
-        // Creating an AJAX call for the specific movie button being clicked
+        // Creating an AJAX call for specific city's weather
         $.ajax({
             url: queryURL,
 
@@ -22,7 +22,7 @@ $(document).ready(function () {
             let lon = (response.city.coord.lon);
 
             let queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
-
+            //query the api for UV index value
             $.ajax({
                 url: queryURL2,
 
@@ -30,33 +30,40 @@ $(document).ready(function () {
 
             }).then(function (uvIresponse) {
 
-                console.log("this is UV index", uvIresponse.value);
 
-                // Log the queryURL
-                console.log(queryURL);
 
-                // Log the resulting object
-                console.log(response);
-                // Creating a div to hold the movie
-                //  var cityDiv = $("<div class='city'>");
-                console.log(response.city.name);
-                // Storing the rating data
-                //  var date = response.list.dt;
 
-                console.log(response.list[0].dt_txt);
+                let cityName = response.city.name;
                 let Date = response.list[0].dt_txt;
-                console.log(moment(Date).format('MMMM Do, YYYY'));
+                let today = moment(Date).format('MMMM Do, YYYY');
+                let temperature = response.list[0].main.temp;
+                let humidity = response.list[0].main.humidity;
+                let windSpeed = response.list[0].wind.speed
 
-                // Creating an element to have the rating displayed
-                //  var hTwo = $("<h2>").text("(" + "Date: " + date + ")");
+                console.log("this is UV index", uvIresponse.value);
+                console.log(queryURL);
+                console.log(response);
+                console.log(response.city.name);
+                console.log(moment(Date).format('MMMM Do, YYYY'));
+                console.log(response.list[0].dt_txt);
                 console.log(response.list[0].main.temp);
-                // Displaying the rating
-                // cityDiv.append(hTwo);+ '&deg;F');
                 console.log("humidity", response.list[0].main.humidity);
                 console.log("wind", response.list[0].wind.speed);
-
                 console.log("lat", lat);
                 console.log("lon", lon);
+                // Transfer content to HTML
+
+                let cityH2 = $("<h2 class='cityCl'>").text(cityName);
+
+                let citeDate = $("<p class='datecl'>").text(today);
+
+                let weatherIcon = $("<img src='http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png>");
+                let pOne = $("<p>").text("temperature: " + temperature + "&deg;F");
+                let pTwo = $("<p>").text("Humidity: " + humidity + " %");
+                let pThree = $("<p>").text("Wind Speed" + windSpeed + " MPH");
+
+
+
                 let color = "green";
                 let UVindex = uvIresponse.value;
                 if (UVindex > 7) {
@@ -70,39 +77,20 @@ $(document).ready(function () {
                     color = "green"
                 }
 
+                let uvSpan = $("<span>").css("color", color);
+                let pFour = $("<p>").text("UV Index: " + UVindex).append(uvSpan);
+
+                $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree, pFour);
+
+                // (this is necessary otherwise you will have repeat buttons)
+                // $(".buttons-view").empty();
             })
         })
     }
 
-    // var ajax1 = $.ajax({ 
-    //     dataType: "json",
-    //     url: queryURL,
-    //     async: true,
-    //     success: function(response) {}                     
-    //   });
-
-
-    //   var ajax2 = $.ajax({ 
-    //     dataType: "json",
-    //     url: queryURL2,
-    //     async: true,
-    //     success: function(response) {}  
-    //   });
-
-    //   $.when( ajax1 , ajax2  ).done(function( a1, a2 ) {
-    //      // a1 and a2 are arguments resolved for the page1 and page2 ajax requests, respectively.
-    //      // Each argument is an array with the following structure: [ data, statusText, jqXHR ]
-    //      var data = a1[ 0 ] + a2[ 0 ]; // a1[ 0 ] = "Whip", a2[ 0 ] = " It"
-    //      if ( /Whip It/.test( data ) ) {
-    //         alert( "We got what we came for!" );
-    //      }
-    //   });
 
 
 
-    //http://api.openweathermap.org/v3/uvi/40.7,-74.2/current.json?appid={your-api-key}
-    // Storing the release year    // Transfer content to HTML
-    ////$(".city").html("<h1>" + response.name + " Weather Details</h1>");
     //$(".wind").text("Wind Speed: " + response.wind.speed);
     //$(".humidity").text("Humidity: " + response.main.humidity);
     //var pTemp = response.temp + "&units=imperial";
@@ -133,20 +121,18 @@ $(document).ready(function () {
 
     // Putting the entire movie above the previous movies
     //   $("#movies-view").prepend(movieDiv);
-    // getUV();
 
 
 
-    // function getUV() {
 
 
 
-    // Function for displaying movie data
+
+
+    // Function for displaying city button 
     function renderButtons() {
 
-        // Deleting the movies prior to adding new movies
-        // (this is necessary otherwise you will have repeat buttons)
-        $("#buttons-view").empty();
+
 
         // Looping through the array of movies
         for (var i = 0; i < cities.length; i++) {
@@ -154,28 +140,31 @@ $(document).ready(function () {
             // Then dynamicaly generating buttons for each movie in the array
             // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
             var a = $("<button>");
-            // Adding a class of movie-btn to our button
-            a.addClass("city-btn");
+            // Adding a class of city-btn to our button
+            a.addClass("city-btn btn btn-default").css("display", "block");
             // Adding a data-attribute
             a.attr("data-name", cities[i]);
             // Providing the initial button text
             a.text(cities[i]);
             // Adding the button to the buttons-view div
-            $("#buttons-view").append(a);
+            $(".buttons-view").append(a);
         }
+
+
     }
 
     // This function handles events where a movie button is clicked
     $("#add-city").on("click", function (event) {
         event.preventDefault();
         // This line grabs the input from the textbox
-        var city = $("#city-input").val().trim();
+        let city = $("#city-input").val().trim();
 
         // Adding movie from the textbox to our array
         cities.push(city);
-
+        //localStorage.setItem("citWeather", JSON.stringify(cities))
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
+        displayCityInfo(city);
     });
 
     // Adding a click event listener to all elements with a class of "movie-btn"
@@ -183,4 +172,5 @@ $(document).ready(function () {
 
     // Calling the renderButtons function to display the initial buttons
     renderButtons();
+    //displayCityInfo();
 });
