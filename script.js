@@ -1,13 +1,14 @@
 $(document).ready(function () {
 
     // Initial array of cities
-    var cities = [];
+    let cities = [];
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
+    let days = 5;
     // display city weather Info function re-renders the HTML to display the appropriate content
     function displayCityInfo() {
         let city = $(this).attr("data-name");
 
-        var queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
+        let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
         // Creating an AJAX call for specific city's weather
         $.ajax({
@@ -51,16 +52,18 @@ $(document).ready(function () {
                 console.log("wind", response.list[0].wind.speed);
                 console.log("lat", lat);
                 console.log("lon", lon);
+                console.log("icon #", response.list[0].weather[0].icon);
+
                 // Transfer content to HTML
 
                 let cityH2 = $("<h2 class='cityCl'>").text(cityName);
 
                 let citeDate = $("<p class='datecl'>").text(today);
 
-                let weatherIcon = $("<img src='http://openweathermap.org/img/w/" + response.list[0].weather[0].icon + ".png>");
-                let pOne = $("<p>").text("temperature: " + temperature + "&deg;F");
-                let pTwo = $("<p>").text("Humidity: " + humidity + " %");
-                let pThree = $("<p>").text("Wind Speed" + windSpeed + " MPH");
+                let weatherIcon = $("<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
+                let pOne = $("<p>").text("temperature:  " + temperature + " °F");
+                let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
+                let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
 
 
 
@@ -76,11 +79,29 @@ $(document).ready(function () {
                 } else {
                     color = "green"
                 }
-
-                let uvSpan = $("<span>").css("color", color);
-                let pFour = $("<p>").text("UV Index: " + UVindex).append(uvSpan);
+                let pFour = $("<p>").text("UV Index: ");
+                let buttonUV = $("<button>");
+                buttonUV.addClass("btn btn-uv disabled").css("background-color", color).text(UVindex);
+                buttonUV.prepend(pFour);
 
                 $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree, pFour);
+
+                //for loop for forecast card dec0
+
+                for (let i = 1; i < 40; i += 8) {
+                    let day = response.list[i].dt_txt;
+                    let newDay = moment(day).format('MMMM Do, YYYY');
+                    let dayh5 = $("<h5>").text(newDay).css("color", "white");
+                    dayh5.addClass("card-text");
+                    let iconWN = $("<img src='http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + ".png'>");
+                    let p1 = $("<p>").text("Temperature: " + response.list[i].main.temp + "°F").css("color", "white");
+                    p1.addClass("card-text");
+                    let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
+                    p2.addClass("card-text");
+                    for (j = 1; j < 6; j++) {
+                        $(".card" + [j]).append(dayh5, iconWN, p1, p2);
+                    }
+                }
 
                 // (this is necessary otherwise you will have repeat buttons)
                 // $(".buttons-view").empty();

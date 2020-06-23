@@ -6,19 +6,14 @@ body {
     line-height: 1;
   }
   
-  /* textarea that is transparent until the time changes to past present or future color style */
-  textarea{
-    background: transparent;
-    border: none;
-    resize: none;
-    color: #000000;
-    border-left: 1px solid black;
-    padding: 10px;
-    width: 100%;
-    height: 100%
-  
+  .btn-uv {
+    display: inline;
+    color: black;
   }
-  
+  .card {
+    height: auto;
+    width: auto;
+  }
   /* banner with project name and date and time style */
   .jumbotron {
     text-align: center;
@@ -29,55 +24,7 @@ body {
     border-bottom: 10px solid black;
   }
   
-  /* text area that is wrapped for longer notation */
-  .description{
-    white-space: pre-wrap;
-  }
   
-  /* class styling for time of day on scheduler */
-  .time-block{
-    text-align: center;
-    border-radius: 15px;
-  }
-  
-  /* sets the row height for each hour */
-  .row {
-    white-space: pre-wrap;
-    height: 80px;
-    border-top: 1px solid white;;
-  }
-  
-  /* styling for the hour display of the scheduler */
-  .hour {
-    background-color: #ffffff;
-    color: #000000;
-    border-top: 1px dashed #000000;
-    border-left: 1px dashed #000000;
-    border-bottom: 1px dashed #000000;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-  }
-  
-  /* change of style when time has past the scheduler */
-  .past {
-    background-color: #d3d3d3;
-    color: #4aaaa4;
-  }
-  
-  /* change of style when time is the at present hour of the scheduler */
-  .present {
-    background-color: #ff6961;
-    color: #000000;
-  }
-  
-  /* change of style when time has not yet reached  the hour of the scheduler */
-  .future {
-    background-color: #77dd77;
-    color: darkmagenta;
-  }
   
   /* save button stylings */
   .saveBtn {
