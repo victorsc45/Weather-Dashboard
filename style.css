@@ -5,7 +5,25 @@ body {
     font-size: 20px;
     line-height: 1;
   }
-  
+  #city-input {
+    border-color: #4aaaa4;
+    background-color: lightcyan;
+    color: black;
+    font-weight: 300;
+  }
+  .city-btn {
+    height: 100%;
+    width: 250px;
+    border: 4px;
+    border-color: black;
+    background-color: lightcyan;
+    color: black;
+        
+  }
+  .city-btn i:hover {
+    font-size: 30px;
+    transition: all .3s ease-in-out;
+    }
   .btn-uv {
     display: inline;
     color: black;
@@ -23,20 +41,28 @@ body {
     border-radius: 0;
     border-bottom: 10px solid black;
   }
-  
-  
+  .card-deck {
+    margin: 0, auto;
+    padding: 0, auto;
+  }
+  .card-deck-header {
+    display: inline-block;
+    text-align: center;
+
+    font-size: 25px;
+  }
   
   /* save button stylings */
-  .saveBtn {
+  #add-city {
     border-left: 1px solid black;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #06AED5;
+    background-color: #4aaaa4;
     color: white;
   }
   
   /* save button hover style */
-  .saveBtn i:hover {
+  #add-city i:hover {
     font-size: 30px;
     transition: all .3s ease-in-out;
     }

@@ -3,7 +3,7 @@ $(document).ready(function () {
     // Initial array of cities
     let cities = [];
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
-    let days = 40;
+
     // display city weather Info function re-renders the HTML to display the appropriate content
     function displayCityInfo() {
         let city = $(this).attr("data-name");
@@ -61,6 +61,7 @@ $(document).ready(function () {
                 let citeDate = $("<p class='datecl'>").text(today);
 
                 let weatherIcon = $("<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
+
                 let pOne = $("<p>").text("temperature:  " + temperature + " °F");
                 let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
                 let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
@@ -82,35 +83,24 @@ $(document).ready(function () {
                 let pFour = $("<p>").text("UV Index: ");
                 let buttonUV = $("<button>");
                 buttonUV.addClass("btn btn-uv").css("background-color", color).text(UVindex);
-
+                // $(".media").empty();
+                // $(".border").empty();
+                // $(".card-deck").empty();
+                // $(".card-deck-header").empty();
 
                 $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree, pFour, buttonUV);
 
-                // let queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&daily&appid=" + apiKey + "&cnt=" + days;
-
-                // $.ajax({
-                //     url: queryURL3,
-
-                //     method: "GET"
-
-                // }).then(function (forecast) {
-                //     console.log(queryURL3);
-                //     console.log("this is the forecast", forecast);
-                //     let day = forecast.list[1].dt;
-                //     let newDay = moment(day).format('MMMM Do, YYYY');
-                //     console.log('new datetime', newDay);
-
+                // let deckH = $("<div>");
+                // deckH.addClass("card-deck-header p-3 col-md-8 float-right").text('5 Day Forecast:');
+                // $(".card-deck").prepend(deckH);
                 for (let i = 1; i < response.list.length; i += 8) {
-
-
-
-
 
                     let day = response.list[i].dt_txt;
                     let newDay = moment(day).format('MMMM Do, YYYY');
                     let dayh5 = $("<h5>").text(newDay).css("color", "white");
                     dayh5.addClass("card-text");
                     let iconWN = $("<img src='http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + ".png'>");
+
                     let p1 = $("<p>").text("Temperature: " + response.list[i].main.temp + "°F").css("color", "white");
                     p1.addClass("card-text");
                     let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
@@ -121,10 +111,9 @@ $(document).ready(function () {
 
 
 
-                // })
 
-                // (this is necessary otherwise you will have repeat buttons)
-                // $(".buttons-view").empty();
+
+
             })
         })
 
@@ -135,7 +124,8 @@ $(document).ready(function () {
     // Function for displaying city button 
     function renderButtons() {
 
-
+        // this is necessary otherwise you will have repeat buttons
+        $(".buttons-view").empty();
 
         // Looping through the array of movies
         for (var i = 0; i < cities.length; i++) {
@@ -168,6 +158,7 @@ $(document).ready(function () {
         // Calling renderButtons which handles the processing of our movie array
         renderButtons();
         displayCityInfo(city);
+
     });
 
     // Adding a click event listener to all elements with a class of "movie-btn"
