@@ -3,13 +3,13 @@ $(document).ready(function () {
     // Initial array of cities
     let cities = [];
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
-    let days = 5;
+    let days = 40;
     // display city weather Info function re-renders the HTML to display the appropriate content
     function displayCityInfo() {
         let city = $(this).attr("data-name");
 
-        let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
+        let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
         // Creating an AJAX call for specific city's weather
         $.ajax({
             url: queryURL,
@@ -81,14 +81,31 @@ $(document).ready(function () {
                 }
                 let pFour = $("<p>").text("UV Index: ");
                 let buttonUV = $("<button>");
-                buttonUV.addClass("btn btn-uv disabled").css("background-color", color).text(UVindex);
-                buttonUV.prepend(pFour);
+                buttonUV.addClass("btn btn-uv").css("background-color", color).text(UVindex);
 
-                $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree, pFour);
 
-                //for loop for forecast card dec0
+                $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree, pFour, buttonUV);
 
-                for (let i = 1; i < 40; i += 8) {
+                // let queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&daily&appid=" + apiKey + "&cnt=" + days;
+
+                // $.ajax({
+                //     url: queryURL3,
+
+                //     method: "GET"
+
+                // }).then(function (forecast) {
+                //     console.log(queryURL3);
+                //     console.log("this is the forecast", forecast);
+                //     let day = forecast.list[1].dt;
+                //     let newDay = moment(day).format('MMMM Do, YYYY');
+                //     console.log('new datetime', newDay);
+
+                for (let i = 1; i < response.list.length; i += 8) {
+
+
+
+
+
                     let day = response.list[i].dt_txt;
                     let newDay = moment(day).format('MMMM Do, YYYY');
                     let dayh5 = $("<h5>").text(newDay).css("color", "white");
@@ -98,57 +115,22 @@ $(document).ready(function () {
                     p1.addClass("card-text");
                     let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
                     p2.addClass("card-text");
-                    for (j = 1; j < 6; j++) {
-                        $(".card" + [j]).append(dayh5, iconWN, p1, p2);
-                    }
+
+                    $(".card" + [i]).append(dayh5, iconWN, p1, p2);
                 }
+
+
+
+                // })
 
                 // (this is necessary otherwise you will have repeat buttons)
                 // $(".buttons-view").empty();
             })
         })
+
+
+
     }
-
-
-
-
-    //$(".wind").text("Wind Speed: " + response.wind.speed);
-    //$(".humidity").text("Humidity: " + response.main.humidity);
-    //var pTemp = response.temp + "&units=imperial";
-
-    // Creating an element to hold the release year
-    //  var pTag1 = $("<p>").text("Temperature: " + pTemp);
-
-    // Displaying the release year
-    //   CityDiv.append(pTag1);
-
-    // Storing the plot
-    //  var plot = response.Plot;
-
-    // Creating an element to hold the plot
-    //  var pThree = $("<p>").text("Plot: " + plot);
-
-    // Appending the plot
-    //  movieDiv.append(pThree);
-
-    // Retrieving the URL for the image
-    //   var imgURL = response.Poster;
-
-    // Creating an element to hold the image
-    //   var image = $("<img>").attr("src", imgURL);
-
-    // Appending the image
-    //   movieDiv.append(image);
-
-    // Putting the entire movie above the previous movies
-    //   $("#movies-view").prepend(movieDiv);
-
-
-
-
-
-
-
 
     // Function for displaying city button 
     function renderButtons() {
@@ -158,7 +140,7 @@ $(document).ready(function () {
         // Looping through the array of movies
         for (var i = 0; i < cities.length; i++) {
 
-            // Then dynamicaly generating buttons for each movie in the array
+            // Then dynamicaly generating buttons for each city
             // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
             var a = $("<button>");
             // Adding a class of city-btn to our button
