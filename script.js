@@ -1,39 +1,48 @@
 $(document).ready(function () {
+
+    // hide DOM until api calls are cast into elements of HTML
+
     $(".media").hide();
     $(".card-deck").hide();
-    // Initial array of cities
+
+    //variable api Key
 
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
+
     // array to add cities to, to be grabbed from after search
+
     var cities = JSON.parse(localStorage.getItem("cities")) || [];
+
+    // calls function to loop the cities array and pass to create buttons and display weather information
+
     grabCity();
+
     function grabCity() {
-
-
-
         let city = cities[cities.length - 1];
-
-
 
         renderButtons(city);
         searchCityInfo(city);
-
     }
+
     // display city weather Info function re-renders the HTML to display the appropriate content
+
     function searchCityInfo(city) {
 
-
-        // let city = $(this).attr("data-name");
+        //   query url for the weather api using city name and api key and conversion of temperature units
 
         let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
         // Creating an AJAX call for specific city's weather
+
         $.ajax({
             url: queryURL,
 
             method: "GET"
 
         }).then(function (response) {
+
+            // fetch api data and convert to variables
+
             let cityName = response.city.name;
             let Date = response.list[0].dt_txt;
             let today = moment(Date).format('MMMM Do, YYYY');
@@ -41,20 +50,8 @@ $(document).ready(function () {
             let humidity = response.list[0].main.humidity;
             let windSpeed = response.list[0].wind.speed
 
-            // console.log("this is UV index", uvIresponse.value);
-            // console.log(queryURL);
-            // console.log(response);
-            // console.log(response.city.name);
-            // console.log(moment(Date).format('MMMM Do, YYYY'));
-            // console.log(response.list[0].dt_txt);
-            // console.log(response.list[0].main.temp);
-            // console.log("humidity", response.list[0].main.humidity);
-            // console.log("wind", response.list[0].wind.speed);
-            // console.log("lat", lat);
-            // console.log("lon", lon);
-            // console.log("icon #", response.list[0].weather[0].icon);
 
-            // Transfer content to HTML
+            // Transfer content to HTML and append to appropriate DOM element
 
             let cityH2 = $("<h2 class='cityCl'>").text(cityName);
             let citeDate = $("<p class='datecl'>").text(today);
@@ -62,13 +59,18 @@ $(document).ready(function () {
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
+            // show media content that was hidden for a clean looking UI
+
             $(".media").show();
+
+            //empty media body to replace with new appends
 
             $(".media-body").empty();
             $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree);
 
             //for loop to load card info
             // loop for the card information forecast 5 days
+
             for (let i = 1; i < response.list.length; i += 8) {
                 let day = response.list[i].dt_txt;
                 let newDay = moment(day).format('MMMM Do, YYYY');
@@ -79,20 +81,35 @@ $(document).ready(function () {
                 p1.addClass("card-text");
                 let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
                 p2.addClass("card-text");
+
+                // show the deck and empty previous deck to append new city forecast
+
                 $(".card-deck").show();
                 $(".card" + [i]).empty()
                 $(".card" + [i]).append(dayh5, iconWN, p1, p2);
             }
+
+            // variables of latitude and longitude to pass to api query for UV index data
+
             let lat = (response.city.coord.lat);
             let lon = (response.city.coord.lon);
+
+            // call UV index function and pass args lat and lon
+
             uvISearch(lat, lon);
         })
     }
+
+    // function to call open weather api and get the uv index info per city
+
     function uvISearch(lat, lon) {
+
+        // query the api using lat and lon for uv index value
+
         let queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
-
         //query the api for UV index value
+
         $.ajax({
             url: queryURL2,
 
@@ -100,8 +117,10 @@ $(document).ready(function () {
 
         }).then(function (uvIresponse) {
 
+            //fetch the uv index value from api and if condition statements to determine the severity of uv index by color
 
             let UVindex = uvIresponse.value;
+
             if (UVindex > 7) {
                 color = "red";
             }
@@ -116,7 +135,11 @@ $(document).ready(function () {
             let buttonUV = $("<button>");
             buttonUV.addClass("btn btn-uv").css("background-color", color).text(UVindex);
 
+            // clear the button for new city appending
+
             $(".btn-uv").empty();
+
+            // append new disabled button with uv index data inside it
 
             $(".media-body").append(pFour, buttonUV);
 
@@ -127,37 +150,53 @@ $(document).ready(function () {
 
 
     // Function for displaying city button 
+
     function renderButtons(city) {
 
         // this is necessary otherwise you will have repeat buttons
+
         $(".buttons-view").empty();
 
 
         // Looping through the array of cities
+
         for (var i = 0; i < cities.length; i++) {
 
             // Then dynamicaly generating buttons for each city
-            // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+
             var a = $("<button>");
+
             // Adding a class of city-btn to our button
+
             a.addClass("city-btn btn btn-default").css("display", "block");
+
             // Adding a data-attribute
+
             a.attr("data-name", cities[i]);
+
             // Providing the initial button text
+
             a.text(cities[i]);
+
             // Adding the button to the buttons-view div
+
             $(".buttons-view").append(a);
         }
     }
 
-    // This function handles events where a city button is clicked
+    // This function handles events where a city button is clicked 
+
     $("#add-city").on("click", function (event) {
         event.preventDefault();
 
-        // This line grabs the input from the textbox
+        // This line consumes the input from the textbox value
+
         let city = $("#city-input").val().trim();
-        //push new city into the Array
+
+        //push new city into the array
+
         var containsCity = false;
+
         if (cities != null) {
             $(cities).each(function (w) {
                 if (cities[w] === city) {
@@ -171,25 +210,23 @@ $(document).ready(function () {
         }
 
         // add to local storage
+
         localStorage.setItem("cities", JSON.stringify(cities));
 
 
-        // Calling renderButtons which handles the processing of our cities array
+        // calling renderButtons and search to display DOM elements with city weather information
         renderButtons(city);
         searchCityInfo(city);
 
     });
 
-    // Adding a click event listener to all elements with a class of "city-btn"
+    // click event listener to all elements with a class of "city-btn"
+
     $(document).on("click", ".city-btn", function () {
+
+        //pull the data attribute of the city button that was clicked and send it to the query functions to display weather info
+
         let city = $(this).attr("data-name");
-
-
-        // let city = $(this).attr("data-name");
-
-        // Calling the renderButtons function to display the initial buttons
-        //  renderButtons();
-
         searchCityInfo(city);
     })
 });
