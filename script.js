@@ -7,8 +7,8 @@ $(document).ready(function () {
     var cities = JSON.parse(localStorage.getItem("cities")) || [];
     grabCity();
     function grabCity() {
-        $(".media-body").empty();
-        // $(".card-deck").empty();
+
+
         var city = cities[cities.length - 1];
 
         searchCityInfo(city);
@@ -57,6 +57,7 @@ $(document).ready(function () {
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
+            $(".media-body").empty();
             $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree);
 
             //for loop to load card info
@@ -71,6 +72,7 @@ $(document).ready(function () {
                 p1.addClass("card-text");
                 let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
                 p2.addClass("card-text");
+                $(".card" + [i]).empty()
                 $(".card" + [i]).append(dayh5, iconWN, p1, p2);
             }
             let lat = (response.city.coord.lat);
@@ -105,6 +107,7 @@ $(document).ready(function () {
             let pFour = $("<p>").text("UV Index: ");
             let buttonUV = $("<button>");
             buttonUV.addClass("btn btn-uv").css("background-color", color).text(UVindex);
+            $(".btn-uv").empty();
             $(".media-body").append(pFour, buttonUV);
 
 
