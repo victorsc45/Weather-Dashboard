@@ -9,8 +9,8 @@ $(document).ready(function () {
     function grabCity() {
 
 
-        var city = cities[cities.length - 1];
-
+        let city = cities[cities.length - 1];
+        renderButtons(city);
         searchCityInfo(city);
     }
     // display city weather Info function re-renders the HTML to display the appropriate content
@@ -107,7 +107,9 @@ $(document).ready(function () {
             let pFour = $("<p>").text("UV Index: ");
             let buttonUV = $("<button>");
             buttonUV.addClass("btn btn-uv").css("background-color", color).text(UVindex);
+
             $(".btn-uv").empty();
+
             $(".media-body").append(pFour, buttonUV);
 
 
@@ -121,6 +123,7 @@ $(document).ready(function () {
 
         // this is necessary otherwise you will have repeat buttons
         $(".buttons-view").empty();
+
 
         // Looping through the array of cities
         for (var i = 0; i < cities.length; i++) {
