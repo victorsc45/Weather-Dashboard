@@ -1,5 +1,6 @@
 $(document).ready(function () {
-
+    $(".media").hide();
+    $(".card-deck").hide();
     // Initial array of cities
 
     let apiKey = "7401399c2c0acdc905b25bf3b17e2d14";
@@ -9,9 +10,14 @@ $(document).ready(function () {
     function grabCity() {
 
 
+
         let city = cities[cities.length - 1];
+
+
+
         renderButtons(city);
         searchCityInfo(city);
+
     }
     // display city weather Info function re-renders the HTML to display the appropriate content
     function searchCityInfo(city) {
@@ -20,7 +26,6 @@ $(document).ready(function () {
         // let city = $(this).attr("data-name");
 
         let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
-
 
         // Creating an AJAX call for specific city's weather
         $.ajax({
@@ -57,6 +62,8 @@ $(document).ready(function () {
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
+            $(".media").show();
+
             $(".media-body").empty();
             $(".media-body").append(cityH2, citeDate, weatherIcon, pOne, pTwo, pThree);
 
@@ -72,6 +79,7 @@ $(document).ready(function () {
                 p1.addClass("card-text");
                 let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
                 p2.addClass("card-text");
+                $(".card-deck").show();
                 $(".card" + [i]).empty()
                 $(".card" + [i]).append(dayh5, iconWN, p1, p2);
             }

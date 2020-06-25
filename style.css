@@ -20,7 +20,17 @@ body {
     color: black;
         
   }
- 
+ .media {
+   border: 0 px;
+   background-color: whitesmoke;
+ }
+ .media-footer {
+   position: absolute;
+   bottom: 0;
+  Left: 50%;
+  font-size: 20px;
+  font-weight: 700;
+ }
   .btn-uv {
     display: inline;
     color: black;
