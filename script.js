@@ -170,12 +170,15 @@ $(document).ready(function () {
     });
 
     // Adding a click event listener to all elements with a class of "city-btn"
-    $(document).on("click", ".city-btn", searchCityInfo);
-
-    let city = $(this).attr("data-name");
-
-    // Calling the renderButtons function to display the initial buttons
-    renderButtons();
+    $(document).on("click", ".city-btn", function () {
+        let city = $(this).attr("data-name");
 
 
+        // let city = $(this).attr("data-name");
+
+        // Calling the renderButtons function to display the initial buttons
+        //  renderButtons();
+
+        searchCityInfo(city);
+    })
 });
