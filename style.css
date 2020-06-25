@@ -22,7 +22,8 @@ body {
   }
  .media {
    border: 0 px;
-   background-color: whitesmoke;
+   background-color: lightcyan;
+  
  }
  .media-footer {
    position: absolute;
@@ -48,17 +49,17 @@ body {
     color: black;
     border-radius: 0;
     border-bottom: 2px solid black;
+    margin: 0 0 15px 0;
   }
   .card-deck {
-    margin: 0, auto;
+    margin: 0 15px 45px 15px;
     padding: 0, auto;
   }
-  .card-deck-header {
+  /* .card-deck-header {
     display: inline-block;
     text-align: center;
-
     font-size: 25px;
-  }
+  } */
   
   /* save button stylings */
   #add-city {
@@ -75,4 +76,16 @@ body {
     transition: all .3s ease-in-out;
     }
   
-   
+    .page-footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #4aaaa4;
+      opacity: .7;
+      color: white;
+      text-align: center;
+      
+     
+    }
+    
