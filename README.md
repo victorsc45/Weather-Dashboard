@@ -103,15 +103,26 @@ Open to the public website for Weather Dashboard
 * Code snippet for ajax call used in this project
 
 ```javascript
- $.ajax({
+  // Creating an AJAX call for specific city's weather
+
+        $.ajax({
+
             url: queryURL,
 
-            method: "GET"
+            method: "GET",
+
+            // error function to validate user input to textbox
+
+            error: function () {
+                alert("city not found enter another city");
+                deleteBtn();
+            }
 
         }).then(function (response) {
 
-            // fetch api data and convert to variables
 
+
+            // fetch api data and convert to variables
             let cityName = response.city.name;
             let Date = response.list[0].dt_txt;
             let today = moment(Date).format('MMMM Do, YYYY');
@@ -124,10 +135,11 @@ Open to the public website for Weather Dashboard
 
             let cityH2 = $("<h2 class='cityCl'>").text(cityName);
             let citeDate = $("<p class='datecl'>").text(today);
-            let weatherIcon = $("<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
+            let weatherIcon = $("<img src='https://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
+
             // show media content that was hidden for a clean looking UI
 
             $(".media").show();

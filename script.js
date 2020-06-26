@@ -18,10 +18,11 @@ $(document).ready(function () {
     grabCity();
 
     function grabCity() {
+
         let city = cities[cities.length - 1];
 
         renderButtons(city);
-        // searchCityInfo(city);
+
     }
 
     // display city weather Info function re-renders the HTML to display the appropriate content
@@ -40,8 +41,9 @@ $(document).ready(function () {
 
             method: "GET",
 
-            error: function () {
+            // error function to validate user input to textbox
 
+            error: function () {
                 alert("city not found enter another city");
                 deleteBtn();
             }
@@ -67,6 +69,7 @@ $(document).ready(function () {
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
+
             // show media content that was hidden for a clean looking UI
 
             $(".media").show();
@@ -163,7 +166,9 @@ $(document).ready(function () {
     }
 
     // Function to delete bad input for city name errors
+
     function deleteBtn() {
+
         cities.splice(cities.length - 1);
     }
 
