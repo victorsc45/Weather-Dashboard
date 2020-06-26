@@ -23,7 +23,7 @@
 * User has the ability to input a city and search the city for weather information
 * When the city is searched a button is displayed with the city name in it
 * after adding the cities the buttons will persist on the page and can be clicked to see the current weather and a five day forecast for that city
-
+* Deployed URL: https://victorsc45.github.io/Weather-Dashboard/
 
 # Spec Criteria
 
