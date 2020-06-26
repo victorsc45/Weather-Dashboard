@@ -21,7 +21,7 @@ $(document).ready(function () {
         let city = cities[cities.length - 1];
 
         renderButtons(city);
-        searchCityInfo(city);
+        // searchCityInfo(city);
     }
 
     // display city weather Info function re-renders the HTML to display the appropriate content
@@ -35,14 +35,22 @@ $(document).ready(function () {
         // Creating an AJAX call for specific city's weather
 
         $.ajax({
+
             url: queryURL,
 
-            method: "GET"
+            method: "GET",
+
+            error: function () {
+
+                alert("city not found enter another city");
+                deleteBtn();
+            }
 
         }).then(function (response) {
 
-            // fetch api data and convert to variables
 
+
+            // fetch api data and convert to variables
             let cityName = response.city.name;
             let Date = response.list[0].dt_txt;
             let today = moment(Date).format('MMMM Do, YYYY');
@@ -97,8 +105,13 @@ $(document).ready(function () {
             // call UV index function and pass args lat and lon
 
             uvISearch(lat, lon);
+
         })
     }
+
+
+
+
 
     // function to call open weather api and get the uv index info per city
 
@@ -111,9 +124,11 @@ $(document).ready(function () {
         //query the api for UV index value
 
         $.ajax({
+
             url: queryURL2,
 
             method: "GET"
+
 
         }).then(function (uvIresponse) {
 
@@ -147,7 +162,10 @@ $(document).ready(function () {
         })
     }
 
-
+    // Function to delete bad input for city name errors
+    function deleteBtn() {
+        cities.splice(cities.length - 1);
+    }
 
     // Function for displaying city button 
 
