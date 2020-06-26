@@ -30,7 +30,7 @@ $(document).ready(function () {
 
         //   query url for the weather api using city name and api key and conversion of temperature units
 
-        let queryURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
+        let queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=" + apiKey + "&units=imperial";
 
         // Creating an AJAX call for specific city's weather
 
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
             let cityH2 = $("<h2 class='cityCl'>").text(cityName);
             let citeDate = $("<p class='datecl'>").text(today);
-            let weatherIcon = $("<img src='http://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
+            let weatherIcon = $("<img src='https://openweathermap.org/img/wn/" + response.list[0].weather[0].icon + ".png'>");
             let pOne = $("<p>").text("temperature:  " + temperature + " °F");
             let pTwo = $("<p>").text("Humidity:  " + humidity + " %");
             let pThree = $("<p>").text("Wind Speed:  " + windSpeed + " MPH");
@@ -76,7 +76,7 @@ $(document).ready(function () {
                 let newDay = moment(day).format('MMMM Do, YYYY');
                 let dayh5 = $("<h5>").text(newDay).css("color", "white");
                 dayh5.addClass("card-text");
-                let iconWN = $("<img src='http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + ".png'>");
+                let iconWN = $("<img src='https://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + ".png'>");
                 let p1 = $("<p>").text("Temperature: " + response.list[i].main.temp + "°F").css("color", "white");
                 p1.addClass("card-text");
                 let p2 = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%").css("color", "white");
@@ -106,7 +106,7 @@ $(document).ready(function () {
 
         // query the api using lat and lon for uv index value
 
-        let queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
+        let queryURL2 = "https://api.openweathermap.org/data/2.5/uvi?appid=" + apiKey + "&lat=" + lat + "&lon=" + lon;
 
         //query the api for UV index value
 
